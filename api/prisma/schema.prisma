@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  ID_USUARIO       String            @id @default(uuid())
+  ATIVO            Boolean           @default(false)
+  NOME_COMPLETO    String
+  EMAIL            String
+  TELEFONE         String
+  CPF              String
+  CARGO            String
+  CARGO_AREA       String
+  SENHA            String
+  DATA_CRIACAO     DateTime
+  DATA_ATUALIZACAO DateTime
+
+  PermissaoUsuario PermissaoUsuario?
+
+  @@map("TB_USUARIO")
+}
+
+model Permissao {
+  ID_PERMISSAO        Int                @id @default(autoincrement())
+  DESCRICAO_PERMISSAO String
+
+  permissaoUsuarios   PermissaoUsuario[]
+
+  @@map("TB_PERMISSAO")
+}
+
+model PermissaoUsuario {
+  ID_PERMISSAO_USUARIO Int       @id @default(autoincrement())
+  FK_ID_USUARIO        String    
+  FK_ID_PERMISSAO      Int
+
+  usuario              Usuario   @relation(fields: [FK_ID_USUARIO], references: [ID_USUARIO])
+  permissao            Permissao @relation(fields: [FK_ID_PERMISSAO], references: [ID_PERMISSAO])
+
+  @@unique([FK_ID_USUARIO])
+  @@map("TB_PERMISSAO_USUARIO")
+}

@@ -1,0 +1,11 @@
+=========================== Controle de Permissões ======================
+- Temas
+- Cadastrar usuários
+- Autenticação de usuários
+- Autorização
+- Listar usuários
+- Níveis de permissão:
+	- ADM -> Listar, Alterar permissões, Alterar cadastro, Excluir cadastro, Desativar cadastro
+	- GERENTE -> Listar, Desativar cadastro, Alterar cadastro
+	- USUARIO -> Listar
+
